@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Icon -->
+    <link rel="icon" href="images/icon.png" sizes="16x16" type="image/png"> 
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel='stylesheet' href="stylesheets/dashboard.css">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+    <!-- Title -->
+    <title>MEETINGX | <%=user.username%></title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md navbar-light bg-light opacity-8">
+        <a class="navbar-brand" href="#">
+            <img src="images/icon.png" width="30" height="30" alt="">
+            MeetingX
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active text-center">
+                <a class="nav-link" href="/add">
+                    <i class="fas fa-calendar-plus"></i> Add
+                </a>
+            </li>
+            <li class="nav-item active text-center">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-user"></i> Profile
+                </a>
+            </li>
+          </ul>
+          <form class="form-inline my-2 my-lg-0" method="POST" action='/logout'>
+            <input type="hidden" name="_csrf" value="<%=csrfToken%>" >
+            <button class="btn btn-outline-success my-2 my-sm-0 mg-5-auto no-outline" type="submit">Logout</button>
+          </form>
+        </div>
+    </nav>  
+    <%-include ../alerts/alert.ejs%>
+      
+    <div class="container">
+        <div class='searchbox-container'>
+            <form method="post" class="searchbox-form">
+                <input type="text" class="textbox" placeholder="Search your meetings">
+                <button title="Search" class="button">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+        </div>
+
+        <div class='meetings-container'>
+          <%if(meetings.length > 0){ %>
+            <div class="row">
+              <%for (let i = 0; i < meetings.length; ++i) {%>
+              <%
+                let date = new Date(meetings[i].datetime);
+                let timeString = date.getDay() + "/" + date.getMonth() + "/" + date.getFullYear() 
+                              + " at " + (date.getHours() < 10 ? '0' : '') + date.getHours()
+                              + ":" + (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
+              %>
+                <div class="col-md-6 col-lg-4">
+                  <div class="card" style="margin: 5px auto;">
+                    <div class="card-body">
+                      <h5 class="card-title height-20"><%=meetings[i].meeting_id%></h5>
+                      <h6 class="card-subtitle mb-2 text-muted"><%=timeString%></h6>
+                      <p class="card-text height-50"><%=meetings[i].title%></p>
+                      <div class="card-button">
+                        <a href="#" class="card-link btn btn-info"
+                          onclick="javascript:display('<%=meetings[i]._id%>')">
+                          <i class="fas fa-info-circle"></i> View
+                        </a>
+                        <a href="#" class="card-link btn btn-success">
+                          <i class="fas fa-edit"></i> Edit
+                        </a>
+                        <a href="#" class="card-link btn btn-danger">
+                          <i class="fas fa-trash"></i> Delete
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <%}%>            
+            </div>
+          <%} else {%>
+            <h1>No meetings to show!</h1>
+          <%}%>
+        </div>
+    </div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="displayMeetingModal" tabindex="-1" role="dialog" 
+  aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Body comes here!
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>    
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="javascripts/dashboard.js"></script>
+  </body>
+</html>

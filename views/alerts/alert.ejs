@@ -1,0 +1,18 @@
+<%if(error && error.length > 0){%>
+    <div class="alert error">
+        <input type="checkbox" id="error_alert"/>
+        <label class="close" title="close" for="error_alert">
+          <i class="icon-remove"></i>
+        </label>
+        <p class="inner"><%=error%></p>
+    </div>
+<%}%>
+<%if(success && success.length > 0){%>
+    <div class="alert success">
+        <input type="checkbox" id="success_alert"/>
+        <label class="close" title="close" for="success_alert">
+          <i class="icon-remove"></i>
+        </label>
+        <p class="inner"><%=success%></p>
+    </div>
+<%}%>
