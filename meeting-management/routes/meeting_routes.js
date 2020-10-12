@@ -23,7 +23,7 @@ router.get('/add', (req, res) => {
     }).catch(err => {
       console.log(err);
       res.clearCookie('jwt');
-      req.flash('error', 'Failed to connect to database');
+      req.flash('error', 'Failed to fetch data from database');
       res.redirect('/signin');
     });
   });
@@ -95,7 +95,7 @@ router.get('/add', (req, res) => {
         }).catch(err => {
           console.log(err);
           res.clearCookie('jwt');
-          req.flash('error', 'Failed to connect to database');
+          req.flash('error', 'Failed to fetch data from database');
           res.redirect('/signin');
         });    
       }

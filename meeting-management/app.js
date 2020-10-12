@@ -21,9 +21,10 @@ var app = express();
 
 // configurations
 // const url = "mongodb+srv://shailly_1512:Shailly_54@shailly5.jwd2z.mongodb.net/meetingx-temp?retryWrites=true&w=majority";
-const url = 'mongodb://localhost:27017/meetingx'; 
+// const url = 'mongodb://localhost:27017/meetingx'; 
+
 // establish connection with db
-mongoose.connect(url, {
+mongoose.connect(process.env.DB_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(function(){
@@ -57,7 +58,6 @@ app.use(session({
 app.use(flash());
 app.use(csrf());
 
-// app.use(session({ cookie: { maxAge: 60000 }}));
 app.use('/', indexRouter);
 app.use('/', usersRouter);
 

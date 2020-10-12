@@ -5,10 +5,12 @@ var jwt = require('jsonwebtoken');
 const {refreshUserToken} = require('./verify_jwt');
 
 // refreshToken will refresh user token and will redirect to dashboard
+// serves the homepage
 router.get('/', refreshUserToken, function(req, res, next) {
   res.render('index');
 });
 
+// serves the signin form
 router.get('/signin', refreshUserToken, (req, res) => {
   res.locals.error =  req.flash('error'); req.flash('error', '');
   res.locals.success = req.flash('success'); req.flash('success', '');
@@ -16,6 +18,7 @@ router.get('/signin', refreshUserToken, (req, res) => {
   res.render('auth_forms/auth_form', {signIn: true});
 });
 
+// serves the signup form
 router.get('/signup', refreshUserToken, (req, res) => {
   res.locals.error =  req.flash('error'); req.flash('error', '');
   res.locals.success = req.flash('success'); req.flash('success', '');
@@ -23,6 +26,8 @@ router.get('/signup', refreshUserToken, (req, res) => {
   res.render('auth_forms/auth_form', {signIn: false});
 });
 
+
+// logins the user if credentials are connect
 router.post('/signin', (req, res) => {
   // fetch and validate
   let {email, password} = req.body;
@@ -63,17 +68,17 @@ router.post('/signin', (req, res) => {
           req.flash('error', 'Failed to save your token!');
           res.redirect('/signin');
         });
-
       }
     }
   }).catch(err => {
     console.log(err);
-    req.flash('error', 'Failed to connect to database!');
+    req.flash('error', 'Failed to fetch details from database!');
     res.redirect('/signin');
   });
 });
 
 
+// registers the users with give credentials
 router.post('/signup', (req, res) => {
   // fetch and validate
   let {username, email, password} = req.body;
@@ -120,6 +125,7 @@ router.post('/signup', (req, res) => {
 
 });
 
+// logout the user
 router.post('/logout', (req, res) => {
   // clear the cookie jwt
   res.clearCookie('jwt');
@@ -128,5 +134,5 @@ router.post('/logout', (req, res) => {
   res.redirect('/signin');
 });
 
-
+// export the router
 module.exports = router;

@@ -25,6 +25,7 @@ router.get('/dashboard', function(req, res, next) {
         res.locals.meetings = meetings;
         res.render('users/dashboard');
       }).catch(err => {
+        console.log(err);
         res.locals.meetings = [];
         res.locals.error = 'Failed to fetch your meetings!';
         res.render('users/dashboard');
@@ -33,7 +34,7 @@ router.get('/dashboard', function(req, res, next) {
   }).catch(err => {
     console.log(err);
     res.clearCookie('jwt');
-    req.flash('error', 'Failed to connect to database');
+    req.flash('error', 'Failed to fetch data from database');
     res.redirect('/signin');
   });
 });
