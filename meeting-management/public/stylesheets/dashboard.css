@@ -27,8 +27,9 @@ text-center{
     outline: 0;
     float: left;
     opacity: 0.8;
-    margin: 10px;
     width: 100%;
+    padding: 5px;
+    margin: 10px auto;
 }
 
 .searchbox-form > .textbox {
@@ -70,6 +71,7 @@ text-center{
     -webkit-border-radius: 0 4px 4px 0;
     border-radius: 0 4px 4px 0;
     cursor: pointer;
+    width: 10%;
 }
 
 .searchbox-form > .button:hover {
@@ -93,4 +95,24 @@ text-center{
 .card-button a{
     margin: 5px 0px;
     font-size: 15px !important;
+}
+
+.displayMeetingHeader h1, h2{
+    word-break: break-all;
+    font-size: 18px;
+    color: black;
+    text-shadow: none;
+    margin: 5px auto;
+    text-align: left;
+}
+.displayMeetingAttendieEmail{
+    background-color: #ebebeb;
+    padding: 10px;
+    border-radius: 20px;
+    display: inline-block;
+    word-break: break-all;
+    margin: 5px;
+}
+.mg-10{
+    margin: 10px;
 }

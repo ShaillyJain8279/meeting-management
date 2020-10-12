@@ -49,6 +49,7 @@
         <div class='searchbox-container'>
             <form method="post" class="searchbox-form">
                 <input type="text" class="textbox" placeholder="Search your meetings">
+                <input type="hidden" value="<%=JSON.stringify(meetings)%>" id="hiddenMeetingsList">
                 <button title="Search" class="button">
                     <i class="fas fa-search"></i>
                 </button>
@@ -61,7 +62,8 @@
               <%for (let i = 0; i < meetings.length; ++i) {%>
               <%
                 let date = new Date(meetings[i].datetime);
-                let timeString = date.getDay() + "/" + date.getMonth() + "/" + date.getFullYear() 
+                let timeString = (date.getDay() < 10 ? '0' : '') + date.getDay() + "/" + 
+                                  (date.getMonth() < 10 ? '0' : '') + date.getMonth() + "/" + date.getFullYear() 
                               + " at " + (date.getHours() < 10 ? '0' : '') + date.getHours()
                               + ":" + (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
               %>
@@ -76,10 +78,16 @@
                           onclick="javascript:display('<%=meetings[i]._id%>')">
                           <i class="fas fa-info-circle"></i> View
                         </a>
-                        <a href="#" class="card-link btn btn-success">
+                        <a href="#" class="card-link btn btn-success"
+                          onclick="javascript:editMeeting('<%=meetings[i]._id%>')">
+                          <form method="POST" action='/editMeetingForm' id='<%=`editMeetingForm_${meetings[i]._id}`%>'>
+                            <input type='hidden' name='editMeetingId' id='<%=`editMeetingId_${meetings[i]._id}`%>'/>
+                            <input type="hidden" name="_csrf" value="<%=csrfToken%>" >                
+                          </form>
                           <i class="fas fa-edit"></i> Edit
                         </a>
-                        <a href="#" class="card-link btn btn-danger">
+                        <a href="#" class="card-link btn btn-danger"
+                          onclick="javascript:confirmDelete('<%=meetings[i]._id%>')">
                           <i class="fas fa-trash"></i> Delete
                         </a>
                       </div>
@@ -96,28 +104,72 @@
 
 
 
-<!-- Modal -->
+<!-- Display meeting Modal -->
 <div class="modal fade" id="displayMeetingModal" tabindex="-1" role="dialog" 
   aria-labelledby="exampleModalLongTitle" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <h5 class="modal-title" id="exampleModalLongTitle">Meeting Details</h5>
+        <button type="button" class="close" style='outline: none; border: none;'
+          data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        Body comes here!
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <div class='displayMeetingHeader'>
+          <h1><strong>Meeting Id: </strong> <span id='displayMeetingId'></span></h1>
+          <h2><strong>Date and Time: </strong> <span id='displayMeetingDateTime'></span></h2>
+          <h2><span id='displayMeetingTimeStamp'></span></h2>
+          <h2><strong>Title: </strong><span id='displayMeetingTitle'></span></h2>
+          <h2><strong>Organiser: </strong><span id='displayMeetingOrganiser'></span></h2>
+          <h2><strong>Attendies:</strong></h2>          
+        </div>
+        <div class='displayMeetingAttendiesContainer'>
+          <div id='displayMeetingAttendies'></div>
+        </div>
       </div>
     </div>
   </div>
 </div>    
 
+
+
+<!-- Confirm delete modal -->
+<div class="modal fade" id="displayConfirmDeleteModal" tabindex="-1" role="dialog" 
+  aria-labelledby="displayConfirmDeleteModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Delete Meeting</h5>
+        <button type="button" class="close" style="border: none; outline: none;"
+          data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="deleteFormContainer">
+          <form method="POST" action='/delete' id='deleteMeetingForm'>
+            <input type='hidden' name='deleteMeetingId' id='deleteMeetingId' />
+            <input type="hidden" name="_csrf" value="<%=csrfToken%>" >
+          </form>
+          Are you sure you want to delete the meeting details? <br/>
+          This action is permanent and cannot be undone. <br/>
+          <div style='text-align: center;'>
+            <button class="btn btn-success mg-10"
+              onclick="javascript:cancelDelete()">No</button>
+            <button class="btn btn-danger mg-10"
+              onclick="javascript:proceedDelete()">Yes</button>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div> -->
+    </div>
+  </div>
+</div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

@@ -27,18 +27,22 @@
                         <h1 class="form-title"><%=isEdit ? `Edit Meeting` : `Create Meeting`%></h1>
                         <div class="form-group">
                             <input type="text" class="form-input" required
+                                value="<%=meeting ? meeting.meeting_id : ''%>"
                                 name="meeting_id" id="meeting_id" placeholder="Meeting Id"/>
                         </div>
                         <div class="form-group">
                             <input type="text" class="form-input" required
+                                value="<%=meeting ? meeting.title: ''%>"
                                 name="title" id="title" placeholder="Title"/>
                         </div>
                         <div class="form-group">
-                            <input type="email" class="form-input" required readonly
-                                name="organiser" id="organiser" value='<%=user.email%>'/>
+                            <input type="email" class="form-input" required
+                            value="<%=meeting ? meeting.organiser : ''%>"
+                                name="organiser" id="organiser" placeholder="Organiser Email"/>
                         </div>
                         <div class="form-group">
                             <input type="datetime-local" class="form-input" required 
+                                value="<%=meeting ? meeting.datetime : ''%>"
                                 name="datetime" id="datetime" placeholder="Date and Time"/>
                         </div>
                         <div class="form-group">
@@ -50,7 +54,7 @@
                             </div> 
                         </div>
                         <input type="hidden" name="attendies" 
-                            id='attendiesList' value="">
+                            id='attendiesList' value="<%=meeting ? meeting.attendies : ''%>">
                         <input type="hidden" name="_id" value="<%=meeting ? meeting._id : ''%>" >
                         <input type="hidden" name="_csrf" value="<%=csrfToken%>" >
                         <div class="form-group">
