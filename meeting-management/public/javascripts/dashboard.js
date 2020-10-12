@@ -61,3 +61,24 @@ function editMeeting(meetingId){
     input.value = meetingId;
     form.submit();
 };
+
+
+
+// adds the toggle password view functionality
+function setTogglePassword() {
+    $(".toggle-password").click(function() {
+        $(this).toggleClass("zmdi-eye zmdi-eye-off");
+        let id = $(this).attr('id');
+        let input = document.getElementById(`${id}_input`);
+        let type = (input.getAttribute('type') === 'password' ? 'text' : 'password');
+        input.setAttribute('type', type);
+    });
+}
+setTogglePassword();
+// displays the update profile modal
+function updateProfile(userString){
+    let user = JSON.parse(userString);
+    $('#updateProfileModal').modal('show');
+    document.getElementById('profileName').value = user.username;
+    document.getElementById('profileEmail').value = user.email;
+};

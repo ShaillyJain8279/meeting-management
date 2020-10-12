@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap');
 @import url('./alerts.css');
+@import url('./update_profile.css');
 *{font-family: 'Libre Baskerville', serif;}
 
 body {
@@ -116,3 +117,9 @@ text-center{
 .mg-10{
     margin: 10px;
 }
+
+
+
+
+
+

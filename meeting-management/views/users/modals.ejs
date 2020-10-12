@@ -1,0 +1,117 @@
+
+<!-- Display meeting Modal -->
+<div class="modal fade" id="displayMeetingModal" tabindex="-1" role="dialog" 
+  aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Meeting Details</h5>
+        <button type="button" class="close" style='outline: none; border: none;'
+          data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class='displayMeetingHeader'>
+          <h1><strong>Meeting Id: </strong> <span id='displayMeetingId'></span></h1>
+          <h2><strong>Date and Time: </strong> <span id='displayMeetingDateTime'></span></h2>
+          <h2><span id='displayMeetingTimeStamp'></span></h2>
+          <h2><strong>Title: </strong><span id='displayMeetingTitle'></span></h2>
+          <h2><strong>Organiser: </strong><span id='displayMeetingOrganiser'></span></h2>
+          <h2><strong>Attendies:</strong></h2>          
+        </div>
+        <div class='displayMeetingAttendiesContainer'>
+          <div id='displayMeetingAttendies'></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>    
+
+
+
+<!-- Confirm delete modal -->
+<div class="modal fade" id="displayConfirmDeleteModal" tabindex="-1" role="dialog" 
+  aria-labelledby="displayConfirmDeleteModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Delete Meeting</h5>
+        <button type="button" class="close" style="border: none; outline: none;"
+          data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="deleteFormContainer">
+          <form method="POST" action='/delete' id='deleteMeetingForm'>
+            <input type='hidden' name='deleteMeetingId' id='deleteMeetingId' />
+            <input type="hidden" name="_csrf" value="<%=csrfToken%>" >
+          </form>
+          Are you sure you want to delete the meeting details? <br/>
+          This action is permanent and cannot be undone. <br/>
+          <div style='text-align: center;'>
+            <button class="btn btn-success mg-10"
+              onclick="javascript:cancelDelete()">No</button>
+            <button class="btn btn-danger mg-10"
+              onclick="javascript:proceedDelete()">Yes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Update profile modal -->
+<div class="modal fade" id="updateProfileModal" tabindex="-1" role="dialog" 
+  aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Your Profile</h5>
+        <button type="button" class="close" style='outline: none; border: none;'
+          data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="main">
+            <section class="signup">
+                <div class="container">
+                    <div class="signup-content">
+                        <form method="POST" action='/update' 
+                            id="signup-form" class="signup-form">
+                            <h1 class="form-title">Your Profile</h1>
+                            <div class="form-group">
+                                <input type="text" class="form-input" required
+                                    name="username" id="profileName" placeholder="Your Name"/>
+                            </div>    
+                            <div class="form-group">
+                                <input type="email" class="form-input" required readonly
+                                    name="email" id="profileEmail" placeholder="Your Email"/>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-input" required
+                                    name="old_password" id="old_password_input" placeholder="Old Password"/>
+                                <span toggle="#old_password" id='old_password' class="zmdi zmdi-eye-off field-icon toggle-password"></span>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-input" required
+                                    name="new_password" id="new_password_input" placeholder="New Password"/>
+                                <span toggle="#new_password" id='new_password' class="zmdi zmdi-eye-off field-icon toggle-password"></span>
+                            </div>
+                            <input type="hidden" name="_csrf" value="<%=csrfToken%>" >
+                            <div class="form-group">
+                                <input type="submit" name="submit" id="submit" class="form-submit"
+                                         value="Save"/>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>    

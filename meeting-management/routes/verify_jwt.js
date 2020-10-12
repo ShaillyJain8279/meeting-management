@@ -37,15 +37,17 @@ exports.refreshUserToken = function(req, res, next) {
     try{
         // get the payload and verify the token
         let payload = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);        
+        console.log(payload);
         // fetch the user with given email
         User.findOne({email: payload.email}).then(user => {
             if (!user) {
-                // if user doesn't exist then proceed for form
-                req.flash('error', 'Invalid session. User not found!');
+                // proceed to form if user does not exist
                 next( );
             } else {
+                console.log(user.refreshToken);
                 // verify the refresh token
                 jwt.verify(user.refreshToken, process.env.REFRESH_TOKEN_SECRET);
+                console.log('refresh token verified!');
                 // create a new token
                 let newToken = jwt.sign({email: payload.email}, process.env.ACCESS_TOKEN_SECRET, {
                     algorithm: 'HS256',
@@ -57,12 +59,9 @@ exports.refreshUserToken = function(req, res, next) {
                 res.redirect('/dashboard');
             }
         }).catch(err => {  
-            console.log(err);
+            // proceed to form if token verification fails
             next( );
         });
-
-        // proceed to next route - user authenticated
-        next( );
     } catch (error) {
         // invalid token - clear and proceed
         res.clearCookie('jwt');

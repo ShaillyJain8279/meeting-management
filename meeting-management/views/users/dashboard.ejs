@@ -6,13 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Icon -->
     <link rel="icon" href="images/icon.png" sizes="16x16" type="image/png"> 
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel='stylesheet' href="stylesheets/dashboard.css">
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
     <!-- Title -->
-    <title>MEETINGX | <%=user.username%></title>
+    <title>MeetingX | <%=user.username%></title>
   </head>
   <body>
     <nav class="navbar navbar-expand-md navbar-light bg-light opacity-8">
@@ -32,7 +34,8 @@
                 </a>
             </li>
             <li class="nav-item active text-center">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="#"
+                  onclick="javascript:updateProfile('<%=JSON.stringify(user)%>')">
                     <i class="fas fa-user"></i> Profile
                 </a>
             </li>
@@ -103,73 +106,9 @@
     </div>
 
 
+    <!-- code for modals -->
+    <%- include ./modals.ejs%>
 
-<!-- Display meeting Modal -->
-<div class="modal fade" id="displayMeetingModal" tabindex="-1" role="dialog" 
-  aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Meeting Details</h5>
-        <button type="button" class="close" style='outline: none; border: none;'
-          data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class='displayMeetingHeader'>
-          <h1><strong>Meeting Id: </strong> <span id='displayMeetingId'></span></h1>
-          <h2><strong>Date and Time: </strong> <span id='displayMeetingDateTime'></span></h2>
-          <h2><span id='displayMeetingTimeStamp'></span></h2>
-          <h2><strong>Title: </strong><span id='displayMeetingTitle'></span></h2>
-          <h2><strong>Organiser: </strong><span id='displayMeetingOrganiser'></span></h2>
-          <h2><strong>Attendies:</strong></h2>          
-        </div>
-        <div class='displayMeetingAttendiesContainer'>
-          <div id='displayMeetingAttendies'></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>    
-
-
-
-<!-- Confirm delete modal -->
-<div class="modal fade" id="displayConfirmDeleteModal" tabindex="-1" role="dialog" 
-  aria-labelledby="displayConfirmDeleteModal" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Delete Meeting</h5>
-        <button type="button" class="close" style="border: none; outline: none;"
-          data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="deleteFormContainer">
-          <form method="POST" action='/delete' id='deleteMeetingForm'>
-            <input type='hidden' name='deleteMeetingId' id='deleteMeetingId' />
-            <input type="hidden" name="_csrf" value="<%=csrfToken%>" >
-          </form>
-          Are you sure you want to delete the meeting details? <br/>
-          This action is permanent and cannot be undone. <br/>
-          <div style='text-align: center;'>
-            <button class="btn btn-success mg-10"
-              onclick="javascript:cancelDelete()">No</button>
-            <button class="btn btn-danger mg-10"
-              onclick="javascript:proceedDelete()">Yes</button>
-          </div>
-        </div>
-      </div>
-      <!-- <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div> -->
-    </div>
-  </div>
-</div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

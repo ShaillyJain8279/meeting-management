@@ -4,8 +4,9 @@ var User = require('../models/user');
 var jwt = require('jsonwebtoken');
 const {refreshUserToken} = require('./verify_jwt');
 
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+// refreshToken will refresh user token and will redirect to dashboard
+router.get('/', refreshUserToken, function(req, res, next) {
+  res.render('index');
 });
 
 router.get('/signin', refreshUserToken, (req, res) => {
