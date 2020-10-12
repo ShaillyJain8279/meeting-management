@@ -23,65 +23,9 @@ text-center{
     outline: none;
 }
 
-
-.searchbox-form {
-    outline: 0;
-    float: left;
-    opacity: 0.8;
-    width: 100%;
-    padding: 5px;
-    margin: 10px auto;
-}
-
-.searchbox-form > .textbox {
-    outline: 0;
-    height: 42px;
-    width: 90%;
-    line-height: 42px;
-    padding: 0 16px;
-    background-color: rgba(255, 255, 255, 0.8);
-    color: #212121;
-    border: 0;
-    float: left;
-    -webkit-border-radius: 4px 0 0 4px;
-    border-radius: 4px 0 0 4px;
-}
-
-.searchbox-form > .textbox:focus {
-    outline: 0;
-    background-color: #FFF;
-}
-
-.searchbox-form > .button {
-    outline: 0;
-    background: none;
-    background-color: rgba(38, 50, 56, 0.8);
-    float: left;
-    height: 42px;
-    width: 42px;
-    text-align: center;
-    line-height: 42px;
-    border: 0;
-    color: #FFF;
-    font: normal normal normal 14px/1 FontAwesome;
-    font-size: 16px;
-    text-rendering: auto;
-    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-    -webkit-transition: background-color .4s ease;
-    transition: background-color .4s ease;
-    -webkit-border-radius: 0 4px 4px 0;
-    border-radius: 0 4px 4px 0;
-    cursor: pointer;
-    width: 10%;
-}
-
-.searchbox-form > .button:hover {
-    background-color: rgba(0, 150, 136, 0.8);
-}
-
 .height-20{
-    height: 20px !important;
-    max-height: 20px !important;
+    height: 25px !important;
+    max-height: 25px !important;
     overflow: hidden;
 }
 .height-50{

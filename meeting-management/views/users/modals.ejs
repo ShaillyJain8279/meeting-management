@@ -80,8 +80,7 @@
             <section class="signup">
                 <div class="container">
                     <div class="signup-content">
-                        <form method="POST" action='/update' 
-                            id="signup-form" class="signup-form">
+                        <form method="POST" action='/update' class="signup-form">
                             <h1 class="form-title">Your Profile</h1>
                             <div class="form-group">
                                 <input type="text" class="form-input" required
@@ -103,10 +102,74 @@
                             </div>
                             <input type="hidden" name="_csrf" value="<%=csrfToken%>" >
                             <div class="form-group">
-                                <input type="submit" name="submit" id="submit" class="form-submit"
-                                         value="Save"/>
+                                <input type="submit" class="form-submit" value="Save"/>
                             </div>
                         </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>    
+
+
+
+
+<!-- Filters modal -->
+<div class="modal fade" id="filtersModal" tabindex="-1" role="dialog" 
+  aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Filters</h5>
+        <button type="button" class="close" style='outline: none; border: none;'
+          data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="main">
+            <section class="signup">
+                <div class="container">
+                    <div class="signup-content">
+                        <form method="POST" class="signup-form" id='filterForm'>
+                          <div class="form-group">
+                            Meeting Id contains
+                            <input type="text" class="form-input" 
+                              id="filterMeetingId" placeholder="Some text here"/>
+                          </div>    
+                          <div class="form-group">
+                            Meeting title contains
+                            <input type="text" class="form-input" 
+                              id="filterTitle" placeholder="Some text here"/>
+                          </div>    
+                          <div class="form-group">
+                            Meeting organiser contains
+                            <input type="text" class="form-input" 
+                              id="filterOrganiserEmail" placeholder="Comma separated emails"/>
+                          </div>    
+                          <div class="form-group">
+                            Meeting attendie contains
+                            <input type="text" class="form-input" 
+                              id="filterAttendieEmail" placeholder="Comma separated emails"/>
+                          </div>    
+                          <div class="form-group">
+                              On or after
+                              <input type="datetime-local" class="form-input" id='filterDateAfter'/>
+                            </div>
+                            <div class="form-group">
+                              On or before
+                                <input type="datetime-local" class="form-input" id='filterDateBefore'/>
+                            </div>
+                            <div class="form-group">
+                              <input type="submit" class="form-submit" value="Apply"/>
+                            </div>
+                      </form>
+                      <div class="form-group">
+                        <button class="form-submit" onclick="javascript:clearFilters()">Clear Filters</button>
+                      </div>
                     </div>
                 </div>
             </section>
